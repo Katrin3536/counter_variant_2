@@ -27,7 +27,7 @@ function App() {
             if (editMode.editMode) {
                 checkError2();
             }
-        }, [minValue.minValue, maxValue.maxValue, minValue.editMode]
+        }, [minValue.minValue, maxValue.maxValue, editMode.editMode]
     );
 
     const countIncrementClick = () => {
