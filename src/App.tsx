@@ -4,7 +4,7 @@ import SetCounter from './components/setCounter/SetCounter';
 import CommonCounter from './components/commonCounter/CommonCounter';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from './bll/store';
-import {InitialStateType, setCountAC, setEditModeAC, setErrorAC} from './bll/counter-reducer';
+import {InitialStateType, setCountAC, setErrorAC} from './bll/counter-reducer';
 
 function App() {
     const count = useSelector<AppStateType, InitialStateType>(state => state.count);
@@ -51,7 +51,7 @@ function App() {
                     setMinValue={dispatch}
                     setMaxValue={dispatch}
                     maxValue={maxValue.maxValue}
-                    setEditMode={setEditModeAC}
+                    setEditMode={dispatch}
                     error={error.error}
                     setEditModeCounter={dispatch}
                 />
@@ -64,7 +64,7 @@ function App() {
                     countResetClick={countResetClick}
                     error={error.error}
                     editMode={editMode.editMode}
-                    setEditMode={setEditModeAC}
+                    setEditMode={dispatch}
                     setEditModeCounter={dispatch}
                 />
             }
