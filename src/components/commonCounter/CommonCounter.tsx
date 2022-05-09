@@ -1,18 +1,19 @@
-import React from 'react';
+import React, {Dispatch} from 'react';
 import Button from '../Button';
 import ScoreBoard from './ScoreBoard';
+import {ActionType, setEditModeCounterAC} from '../../bll/counter-reducer';
 
 type CommonCounterType = {
     count: number
     maxValue: number,
     minValue: number,
     countIncrementClick: () => void,
-    countResetClick: () => void
-    error: string
-    editMode: boolean
-    countSetClick: () => void
-    setEditMode: (editMode: boolean) => void
-    setEditModeCounter: (editModeCounter: boolean) => void
+    countResetClick: () => void,
+    error: string,
+    editMode: boolean,
+    countSetClick: () => void,
+    setEditMode: (editMode: boolean) => void,
+    setEditModeCounter: Dispatch<ActionType>
 }
 
 const CommonCounter: React.FC<CommonCounterType> = (props) => {
@@ -20,7 +21,7 @@ const CommonCounter: React.FC<CommonCounterType> = (props) => {
     const onSetClickHandlerCounter = () => {
         props.setEditMode(false);
         props.countSetClick();
-        props.setEditModeCounter(true);
+        props.setEditModeCounter(setEditModeCounterAC(true));
     };
 
     return (

@@ -1,95 +1,71 @@
-import React, {useEffect, useReducer} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import SetCounter from './components/setCounter/SetCounter';
 import CommonCounter from './components/commonCounter/CommonCounter';
-import {
-    reducer2,
-    SET_EDIT_MODE_COUNTER,
-    SET_COUNT,
-    SET_EDIT_MODE,
-    SET_ERROR,
-    SET_MAX_VALUE,
-    SET_MIN_VALUE
-} from './reducer2';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {AppStateType} from './bll/store';
+import {InitialStateType, setCountAC, setEditModeAC, setErrorAC} from './bll/counter-reducer';
 
 function App() {
-    const minInitialValue = localStorage.getItem('minValue') || '';
-    const maxInitialValue = localStorage.getItem('maxValue') || '';
-    // let [count, setCount] = useState<number>(+minInitialValue);
-    // let [minValue, setMinValue] = useState<number>(+minInitialValue);
-    // let [maxValue, setMaxValue] = useState<number>(+maxInitialValue);
-    // let [error, setError] = useState<string>('');
-    // let [editMode, setEditMode] = useState<boolean>(false);
-    // let [editModeCounter, setEditModeCounter] = useState<boolean>(false);
-    const [values, dispatch] = useReducer(reducer2, {
-        count: +minInitialValue,
-        minValue: +minInitialValue,
-        maxValue: +maxInitialValue,
-        error: '',
-        editMode: false,
-        editModeCounter: false
-    });
+    const count = useSelector<AppStateType, InitialStateType>(state => state.count);
+    const minValue = useSelector<AppStateType, InitialStateType>(state => state.minValue);
+    const maxValue = useSelector<AppStateType, InitialStateType>(state => state.maxValue);
+    const error = useSelector<AppStateType, InitialStateType>(state => state.error);
+    const editMode = useSelector<AppStateType, InitialStateType>(state => state.editMode);
+    const editModeCounter = useSelector<AppStateType, InitialStateType>(state => state.editModeCounter);
+    const dispatch = useDispatch();
 
     const checkError2 = () => {
-        if (values.minValue >= values.maxValue || values.minValue < 0 || values.maxValue < 0) {
-            dispatch({type: SET_ERROR, value: 'Incorrect value!'});
+        if (minValue.minValue >= maxValue.maxValue || minValue.minValue < 0 || minValue.maxValue < 0) {
+            dispatch(setErrorAC('Incorrect value!'));
         } else {
-            dispatch({type: SET_ERROR, value: ''});
+            dispatch(setErrorAC(''));
         }
     };
 
     useEffect(() => {
-            if (values.editMode) {
+            if (editMode.editMode) {
                 checkError2();
             }
-        }, [values.minValue, values.maxValue, values.editMode]
+        }, [minValue.minValue, maxValue.maxValue, minValue.editMode]
     );
 
     const countIncrementClick = () => {
-        dispatch({type: SET_COUNT, value: values.count + 1});
+        dispatch(setCountAC(count.count + 1));
     };
 
     const countResetClick = () => {
-        dispatch({type: SET_COUNT, value: values.minValue});
+        dispatch(setCountAC(minValue.minValue));
     };
 
     const onSetClick = () => {
-        dispatch({type: SET_COUNT, value: values.minValue});
+        dispatch(setCountAC(minValue.minValue));
     };
-
-    const setMinValueAC =(minValue:number) => dispatch({type: SET_MIN_VALUE, value: minValue})
-    const setMaxValueAC =(maxValue:number) => dispatch({type: SET_MAX_VALUE, value: maxValue})
-    const setEditModeAC =(editMode:boolean) => dispatch({type: SET_EDIT_MODE, value: editMode})
-    const setEditModeCounterAC =(editModeCounter:boolean) => dispatch({
-        type: SET_EDIT_MODE_COUNTER,
-        value: editModeCounter
-    })
 
     return (
         <div className="wrapper">
-            {values.editModeCounter
+            {editModeCounter.editModeCounter
                 ? <SetCounter
                     countSetClick={onSetClick}
-                    minValue={values.minValue}
-                    setMinValue={setMinValueAC}
-                    setMaxValue={setMaxValueAC}
-                    maxValue={values.maxValue}
+                    minValue={minValue.minValue}
+                    setMinValue={dispatch}
+                    setMaxValue={dispatch}
+                    maxValue={maxValue.maxValue}
                     setEditMode={setEditModeAC}
-                    error={values.error}
-                    setEditModeCounter={setEditModeCounterAC}
+                    error={error.error}
+                    setEditModeCounter={dispatch}
                 />
                 : <CommonCounter
                     countSetClick={onSetClick}
-                    count={values.count}
-                    minValue={values.minValue}
-                    maxValue={values.maxValue}
+                    count={count.count}
+                    minValue={minValue.minValue}
+                    maxValue={maxValue.maxValue}
                     countIncrementClick={countIncrementClick}
                     countResetClick={countResetClick}
-                    error={values.error}
-                    editMode={values.editMode}
+                    error={error.error}
+                    editMode={editMode.editMode}
                     setEditMode={setEditModeAC}
-                    setEditModeCounter={setEditModeCounterAC}
+                    setEditModeCounter={dispatch}
                 />
             }
         </div>

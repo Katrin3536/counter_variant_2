@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {Dispatch} from 'react';
 import Input from '../Input';
+import {ActionType, maxValueAC, minValueAC} from '../../bll/counter-reducer';
 
 type SetScoreBoardType = {
     maxValue: number,
     minValue: number,
-    setMaxValue: (maxValue: number) => void,
-    setMinValue: (minValue: number) => void,
+    setMaxValue: Dispatch<ActionType>,
+    setMinValue: Dispatch<ActionType>,
     setEditMode: (editMode: boolean) => void,
     error: string
 }
@@ -13,11 +14,11 @@ type SetScoreBoardType = {
 const SetScoreBoard: React.FC<SetScoreBoardType> = (props) => {
     const setNewMinValue = (minValue: number) => {
         props.setEditMode(true);
-        props.setMinValue(minValue);
+        props.setMinValue(minValueAC(minValue));
     };
     const setNewMaxValue = (maxValue: number) => {
         props.setEditMode(true);
-        props.setMaxValue(maxValue);
+        props.setMaxValue(maxValueAC(maxValue));
     };
 
     return (
