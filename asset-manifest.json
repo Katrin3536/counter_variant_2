@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/counter_variant_2/static/css/main.6dee41ff.css",
-    "main.js": "/counter_variant_2/static/js/main.2816d5b0.js",
+    "main.js": "/counter_variant_2/static/js/main.7ebfb2a9.js",
     "static/js/787.e458d2a5.chunk.js": "/counter_variant_2/static/js/787.e458d2a5.chunk.js",
     "static/media/stars-space-sky-night.jpg": "/counter_variant_2/static/media/stars-space-sky-night.a849779f4bb6bb57d1a9.jpg",
     "index.html": "/counter_variant_2/index.html",
     "main.6dee41ff.css.map": "/counter_variant_2/static/css/main.6dee41ff.css.map",
-    "main.2816d5b0.js.map": "/counter_variant_2/static/js/main.2816d5b0.js.map",
+    "main.7ebfb2a9.js.map": "/counter_variant_2/static/js/main.7ebfb2a9.js.map",
     "787.e458d2a5.chunk.js.map": "/counter_variant_2/static/js/787.e458d2a5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6dee41ff.css",
-    "static/js/main.2816d5b0.js"
+    "static/js/main.7ebfb2a9.js"
   ]
 }
